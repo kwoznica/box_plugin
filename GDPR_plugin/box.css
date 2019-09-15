@@ -15,5 +15,8 @@
 
 .box--modal-title {
     padding: 1vh 1vh 0 1vh;
-    /*font-size: 20px;*/
+}
+
+.box--modal-content {
+    padding: 1vh 1vh 0 1vh;
 }
