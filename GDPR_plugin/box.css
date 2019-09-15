@@ -1,0 +1,11 @@
+.box--background {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background-color: black;
+    opacity: 0.6;
+}
