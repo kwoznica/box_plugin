@@ -52,7 +52,11 @@ export class Box {
     };
 
     _createModal = () => {
+        let container = document.createElement("div");
+        container.classList.add("box--container");
+
         let modal = document.createElement("div");
+        container.appendChild(modal);
         modal.classList.add("box--modal");
         modal.style.height = this.getHeight();
         modal.style.width = this.getWidth();
@@ -71,17 +75,20 @@ export class Box {
 
         let buttonsSection = document.createElement("section");
         modal.appendChild(buttonsSection);
+        buttonsSection.classList.add("box--modal-buttons");
         let acceptButton = document.createElement("button");
         let cancelButton = document.createElement("button");
         buttonsSection.appendChild(acceptButton);
         buttonsSection.appendChild(cancelButton);
         acceptButton.appendChild(document.createTextNode("Ok"));
         cancelButton.appendChild(document.createTextNode("Cancel"));
+        acceptButton.className = "box--modal-accept-button";
+        cancelButton.className = "box--modal-cancel-button";
 
         acceptButton.addEventListener("click", this._accept);
         cancelButton.addEventListener("click", this._cancel);
 
-        return modal;
+        return container;
     };
 
 }

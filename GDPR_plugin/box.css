@@ -6,11 +6,22 @@
     bottom: 0 !important;
     left: 0 !important;
     right: 0 !important;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.box--container {
+    display: flex;
+    justify-content: center;
+    /*align-content: center;*/
+    top: 50%;
+    margin-top: -150px;
+    width: 100%;
+    position: absolute;
 }
 
 .box--modal {
     background-color: white;
+    position: absolute;
 }
 
 .box--modal-title {
@@ -20,3 +31,21 @@
 .box--modal-content {
     padding: 1vh 1vh 0 1vh;
 }
+
+.box--modal-buttons {
+    position: absolute;
+    bottom: 2vh;
+    display: flex;
+    justify-content: center;
+}
+
+.box--modal-accept-button {
+    background-color: green;
+    margin: auto;
+}
+
+.box--modal-cancel-button {
+    background-color: cadetblue;
+}
+
+
