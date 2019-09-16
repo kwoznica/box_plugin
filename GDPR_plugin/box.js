@@ -75,15 +75,15 @@ export class Box {
 
         let buttonsSection = document.createElement("section");
         modal.appendChild(buttonsSection);
-        buttonsSection.classList.add("box--modal-buttons");
+        buttonsSection.classList.add("box--modal-buttons-section");
         let acceptButton = document.createElement("button");
         let cancelButton = document.createElement("button");
         buttonsSection.appendChild(acceptButton);
         buttonsSection.appendChild(cancelButton);
         acceptButton.appendChild(document.createTextNode("Ok"));
         cancelButton.appendChild(document.createTextNode("Cancel"));
-        acceptButton.className = "box--modal-accept-button";
-        cancelButton.className = "box--modal-cancel-button";
+        acceptButton.className = "box--modal-accept-button box--modal-buttons ";
+        cancelButton.className = "box--modal-cancel-button box--modal-buttons ";
 
         acceptButton.addEventListener("click", this._accept);
         cancelButton.addEventListener("click", this._cancel);

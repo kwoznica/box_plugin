@@ -20,32 +20,57 @@
 }
 
 .box--modal {
-    background-color: white;
+    background-color: whitesmoke;
     position: absolute;
+    border-radius: 2px;
 }
 
 .box--modal-title {
-    padding: 1vh 1vh 0 1vh;
+    padding: 2vh 2vh 0 2vh;
+    font-size: larger;
 }
 
 .box--modal-content {
     padding: 1vh 1vh 0 1vh;
 }
 
-.box--modal-buttons {
+.box--modal-buttons-section {
     position: absolute;
     bottom: 2vh;
+    width: 100%;
     display: flex;
     justify-content: center;
 }
 
+.box--modal-buttons {
+    padding: 1vh 3vh;
+    border: none;
+    border-radius: 2px;
+    margin: 1vh;
+    font-size: medium;
+    color: white;
+    cursor: pointer;
+}
+
+.box--modal-buttons:hover {
+}
+
 .box--modal-accept-button {
-    background-color: green;
-    margin: auto;
+    background-color: #4CAF50;
+}
+
+.box--modal-accept-button:hover {
+    background-color: lightgreen;
+
 }
 
 .box--modal-cancel-button {
-    background-color: cadetblue;
+    background-color: darkred;
+}
+
+.box--modal-cancel-button:hover {
+    background-color: red;
+
 }
 
 
