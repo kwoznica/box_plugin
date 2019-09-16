@@ -15,10 +15,6 @@ export class Box {
         return box;
     }
 
-    open() {
-
-    }
-
     _removeModal = () => {
         let overlay = document.getElementById("overlay-id");
         if (overlay) {
@@ -29,11 +25,14 @@ export class Box {
     _cancel = () => {
         this._removeModal();
         console.log("Cancel click");
+        window.removeEventListener("scroll", this._disabledScroll);
+
     };
 
     _accept = () => {
         this._removeModal();
         console.log("Accept click");
+        window.removeEventListener("scroll", this._disabledScroll);
     };
 
     getHeight = () => {
@@ -49,6 +48,10 @@ export class Box {
         overlay.classList.add("box--overlay");
         overlay.id = "overlay-id";
         return overlay;
+    };
+
+    _disabledScroll = () => {
+        window.scrollTo(0, 0);
     };
 
     _createModal = () => {
@@ -87,6 +90,8 @@ export class Box {
 
         acceptButton.addEventListener("click", this._accept);
         cancelButton.addEventListener("click", this._cancel);
+
+        window.addEventListener("scroll", this._disabledScroll);
 
         return container;
     };
