@@ -8,12 +8,20 @@ export class Box {
         this.isOpen = false;
     }
 
-    create() {
+    create = () => {
         let box = this._createFadedOverlay();
         box.appendChild(this._createModal());
 
         return box;
-    }
+    };
+
+    getHeight = () => {
+        return this.height + "px";
+    };
+
+    getWidth = () => {
+        return this.width + "px";
+    };
 
     _removeModal = () => {
         let overlay = document.getElementById("overlay-id");
@@ -25,22 +33,14 @@ export class Box {
     _cancel = () => {
         this._removeModal();
         console.log("Cancel click");
-        window.removeEventListener("scroll", this._disabledScroll);
+        window.removeEventListener("scroll", this._disableScroll);
 
     };
 
     _accept = () => {
         this._removeModal();
         console.log("Accept click");
-        window.removeEventListener("scroll", this._disabledScroll);
-    };
-
-    getHeight = () => {
-        return this.height + "px";
-    };
-
-    getWidth = () => {
-        return this.width + "px";
+        window.removeEventListener("scroll", this._disableScroll);
     };
 
     _createFadedOverlay = () => {
@@ -50,7 +50,7 @@ export class Box {
         return overlay;
     };
 
-    _disabledScroll = () => {
+    _disableScroll = () => {
         window.scrollTo(0, 0);
     };
 
@@ -79,19 +79,31 @@ export class Box {
         let buttonsSection = document.createElement("section");
         modal.appendChild(buttonsSection);
         buttonsSection.classList.add("box--modal-buttons-section");
-        let acceptButton = document.createElement("button");
-        let cancelButton = document.createElement("button");
+
+        let _createButton = (text, color, hoverColor, onClickFunction) => {
+            let button = document.createElement("button");
+            button.appendChild(document.createTextNode(text));
+            button.classList.add("box--modal-buttons");
+            button.style.backgroundColor = color;
+            button.addEventListener("click", onClickFunction);
+            button.addEventListener("mouseover", function () {
+                button.style.backgroundColor = hoverColor;
+            });
+
+            button.addEventListener("mouseout", function () {
+                button.style.backgroundColor = color;
+            });
+
+            return button;
+        };
+
+        let acceptButton = _createButton("ACCEPT", "green", "lightgreen", this._accept);
         buttonsSection.appendChild(acceptButton);
+        let cancelButton = _createButton("CANCEL", "darkred", "red", this._cancel);
         buttonsSection.appendChild(cancelButton);
-        acceptButton.appendChild(document.createTextNode("Ok"));
-        cancelButton.appendChild(document.createTextNode("Cancel"));
-        acceptButton.className = "box--modal-accept-button box--modal-buttons ";
-        cancelButton.className = "box--modal-cancel-button box--modal-buttons ";
 
-        acceptButton.addEventListener("click", this._accept);
-        cancelButton.addEventListener("click", this._cancel);
 
-        window.addEventListener("scroll", this._disabledScroll);
+        window.addEventListener("scroll", this._disableScroll);
 
         return container;
     };

@@ -44,33 +44,13 @@
 
 .box--modal-buttons {
     padding: 1vh 3vh;
+    width: 15vh;
     border: none;
     border-radius: 2px;
     margin: 1vh;
     font-size: medium;
     color: white;
     cursor: pointer;
-}
-
-.box--modal-buttons:hover {
-}
-
-.box--modal-accept-button {
-    background-color: #4CAF50;
-}
-
-.box--modal-accept-button:hover {
-    background-color: lightgreen;
-
-}
-
-.box--modal-cancel-button {
-    background-color: darkred;
-}
-
-.box--modal-cancel-button:hover {
-    background-color: red;
-
 }
 
 
