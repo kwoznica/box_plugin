@@ -1,18 +1,33 @@
 export class Box {
-    constructor({title, content, autoOpen = true, height = 300, width = 600}) {
+    constructor({title, titleFontSize = 25, content, contentFontSize = 17, expireTime = 24 * 60 * 60 * 1000, autoOpen = true, height = 300, width = 600}) {
         this.title = title;
+        this.titleFontSize = titleFontSize;
         this.content = content;
+        this.contentFontSize = contentFontSize;
         this.height = height;
         this.width = width;
         this.autoOpen = autoOpen;
         this.isOpen = false;
+        this.expireTime = expireTime;
+        this.box = null;
+        this.cookieConfirmation = "GDPR_confirmation";
     }
 
-    create = () => {
-        let box = this._createFadedOverlay();
-        box.appendChild(this._createModal());
+    build = () => {
+        this.box = this._createFadedOverlay();
+        this.box.appendChild(this._createModal());
+        if (this.autoOpen) {
+            this.open();
+        }
+    };
 
-        return box;
+    open = () => {
+        if (this.box && !this.isOpen && !this._isCookieSet(this.cookieConfirmation)) {
+            document.body.appendChild(this.box);
+            this.isOpen = true;
+        } else {
+            throw "Cannot open box! Use build() first!";
+        }
     };
 
     getHeight = () => {
@@ -32,15 +47,31 @@ export class Box {
 
     _cancel = () => {
         this._removeModal();
-        console.log("Cancel click");
         window.removeEventListener("scroll", this._disableScroll);
-
+        this.isOpen = false;
     };
 
     _accept = () => {
         this._removeModal();
-        console.log("Accept click");
         window.removeEventListener("scroll", this._disableScroll);
+        this._setCookie(this.cookieConfirmation, "accepted_by_user", this._calculateExpireDate(this.expireTime), "/");
+        this.isOpen = false;
+    };
+
+    _calculateExpireDate = (timeInMiliseconds) => {
+        let date = new Date();
+        date.setTime(date.getTime() + timeInMiliseconds);
+        return date;
+    };
+
+    _setCookie = (name, value, expireDate, path) => {
+        document.cookie = name + '=' + value + ';expires=' + expireDate.toUTCString() + ';path=' + path;
+    };
+
+    _isCookieSet = (name) => {
+        return document.cookie.split(";").find(
+            cookie => cookie.split("=")[0] === name
+        ) != null;
     };
 
     _createFadedOverlay = () => {
@@ -66,13 +97,18 @@ export class Box {
 
         let titleSection = document.createElement("section");
         modal.appendChild(titleSection);
-        titleSection.appendChild(document.createElement("p").appendChild(document.createTextNode(this.title)));
+        let titleChild = document.createElement("p");
+        titleChild.style.fontSize = this.titleFontSize + "px";
+        titleChild.appendChild(document.createTextNode(this.title));
+        titleSection.appendChild(titleChild);
         titleSection.classList.add("box--modal-title");
+
 
         modal.appendChild(document.createElement("hr"));
 
         let contentSection = document.createElement("section");
         modal.appendChild(contentSection);
+        contentSection.style.fontSize = this.contentFontSize + "px";
         contentSection.appendChild(document.createTextNode(this.content));
         contentSection.classList.add("box--modal-content");
 
@@ -109,3 +145,4 @@ export class Box {
     };
 
 }
+
