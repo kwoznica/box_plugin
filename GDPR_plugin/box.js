@@ -25,16 +25,21 @@ export class Box {
         if (this.box && !this.isOpen && !this._isCookieSet(this.cookieConfirmation)) {
             document.body.appendChild(this.box);
             this.isOpen = true;
-        } else {
-            throw "Cannot open box! Use build() first!";
         }
     };
 
-    getHeight = () => {
+    destroy = () => {
+        if (this.box != null) {
+            this.box.parentNode.removeChild(this.box);
+            this.box = null;
+        }
+    };
+
+    _getHeight = () => {
         return this.height + "px";
     };
 
-    getWidth = () => {
+    _getWidth = () => {
         return this.width + "px";
     };
 
@@ -92,8 +97,8 @@ export class Box {
         let modal = document.createElement("div");
         container.appendChild(modal);
         modal.classList.add("box--modal");
-        modal.style.height = this.getHeight();
-        modal.style.width = this.getWidth();
+        modal.style.height = this._getHeight();
+        modal.style.width = this._getWidth();
 
         let titleSection = document.createElement("section");
         modal.appendChild(titleSection);
@@ -145,4 +150,3 @@ export class Box {
     };
 
 }
-
